@@ -11,11 +11,20 @@ class CategoryRepository {
 
   Future<Categories> getCategories() async {
     try {
-      final data = await client.readData(
-          'https://api.notion.com/v1/databases/$_categoriesDatabaseId/query', {
-        HttpHeaders.authorizationHeader: 'Bearer ${Environment.notionApiKey}',
-        'Notion-Version': '2022-06-28',
-      });
+      final data = await client.queryData(
+        apiUrl:
+            'https://api.notion.com/v1/databases/$_categoriesDatabaseId/query',
+        headers: {
+          'Notion-Version': '2022-06-28',
+          HttpHeaders.authorizationHeader: 'Bearer ${Environment.notionApiKey}',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+        body: {
+          'sorts': [
+            {'property': 'Name', 'direction': 'ascending'}
+          ]
+        },
+      );
 
       return Categories.fromJson(data);
     } catch (error) {
