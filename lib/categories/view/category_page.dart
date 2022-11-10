@@ -15,8 +15,9 @@ class CategoryPage extends StatelessWidget {
     final categoryRepository = CategoryRepository(ApiProvider());
     return BlocProvider(
       create: (_) =>
-          CategoriesOverviewBloc(categoryRepository: categoryRepository),
-      child: Container(),
+          CategoriesOverviewBloc(categoryRepository: categoryRepository)
+            ..add(CategoriesOverviewDataRequested()),
+      child: const CategoriesView(),
     );
   }
 }
@@ -40,17 +41,17 @@ class _SearchBody extends StatelessWidget {
     return BlocBuilder<CategoriesOverviewBloc, CategoriesOverviewState>(
       builder: (context, state) {
         if (state is CategoriesOverviewLoading) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
         if (state is CategoriesOverviewError) {
-          return Text(state.error);
+          return Center(child: Text(state.error));
         }
         if (state is CategoriesOverviewSuccess) {
           return state.items.isEmpty
               ? const Text('No Results')
-              : Expanded(child: _CategoriesResult(items: state.items));
+              : _CategoriesResult(items: state.items);
         }
-        return const Text('Empty');
+        return const Center(child: Text('Empty'));
       },
     );
   }
