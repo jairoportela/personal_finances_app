@@ -21,7 +21,6 @@
 .project
 .settings/
 .vscode/*
-.vscode/launch.*
 
 # Flutter repo-specific
 /bin/cache/
@@ -126,3 +125,4 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
+.vscode/launch.json
