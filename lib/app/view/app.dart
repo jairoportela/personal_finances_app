@@ -6,7 +6,7 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
-import 'package:personal_finances_app/counter/counter.dart';
+import 'package:personal_finances_app/categories/view/category_page.dart';
 import 'package:personal_finances_app/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -23,7 +23,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const CategoryPage(),
     );
   }
 }
