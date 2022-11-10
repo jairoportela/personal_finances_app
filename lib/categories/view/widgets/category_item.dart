@@ -10,10 +10,14 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: item.icon.iconType == IconType.externalResource
-          ? CircleAvatar(
-              child: Image.network(item.icon.externalUrl!.url),
+          ? Image.network(
+              item.icon.externalUrl!.url,
+              height: 25,
             )
-          : Text(item.icon.emoji!),
+          : Text(
+              item.icon.emoji!,
+              style: const TextStyle(fontSize: 25),
+            ),
       title: Text(item.name),
       onTap: () async {},
     );
