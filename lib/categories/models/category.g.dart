@@ -8,13 +8,18 @@ part of 'category.dart';
 
 Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       id: json['id'] as String,
-      name: Category._readNameValue(json, 'name') as String,
-      icon: IconItem.fromJson(json['icon'] as Map<String, dynamic>),
+      name: Category._readNameValue(json, 'name'),
+      icon: json['icon'] == null
+          ? null
+          : IconItem.fromJson(json['icon'] as Map<String, dynamic>),
     );
 
 IconItem _$IconItemFromJson(Map<String, dynamic> json) => IconItem(
-      iconType: $enumDecode(_$IconTypeEnumMap, json['type'],
-          unknownValue: IconType.unknown),
+      iconType: $enumDecode(
+        _$IconTypeEnumMap,
+        json['type'],
+        unknownValue: IconType.unknown,
+      ),
       emoji: json['emoji'] as String?,
       externalUrl: json['external'] == null
           ? null

@@ -45,8 +45,8 @@ void main() {
                 'name',
                 'Educación',
               )
-              .having((w) => w.icon.iconType, 'iconType', IconType.emoji)
-              .having((w) => w.icon.emoji, 'emoji', '🎒'),
+              .having((w) => w.icon!.iconType, 'iconType', IconType.emoji)
+              .having((w) => w.icon!.emoji, 'emoji', '🎒'),
         );
       });
     });

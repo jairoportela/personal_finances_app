@@ -39,7 +39,7 @@ class Category {
   final String id;
   @JsonKey(readValue: _readNameValue)
   final String name;
-  final IconItem icon;
+  final IconItem? icon;
 
   static String _readNameValue(Map<dynamic, dynamic> json, String _) {
     return json['properties']['Name']['title'][0]['text']['content'] as String;

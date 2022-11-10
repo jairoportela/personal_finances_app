@@ -9,17 +9,30 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: item.icon.iconType == IconType.externalResource
-          ? Image.network(
-              item.icon.externalUrl!.url,
-              height: 25,
+      leading: item.icon != null
+          ? _LeadingIcon(
+              icon: item.icon!,
             )
-          : Text(
-              item.icon.emoji!,
-              style: const TextStyle(fontSize: 25),
-            ),
+          : null,
       title: Text(item.name),
       onTap: () async {},
     );
+  }
+}
+
+class _LeadingIcon extends StatelessWidget {
+  const _LeadingIcon({required this.icon});
+  final IconItem icon;
+  @override
+  Widget build(BuildContext context) {
+    return icon.iconType == IconType.externalResource
+        ? Image.network(
+            icon.externalUrl!.url,
+            height: 25,
+          )
+        : Text(
+            icon.emoji!,
+            style: const TextStyle(fontSize: 25),
+          );
   }
 }
