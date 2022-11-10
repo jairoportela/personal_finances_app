@@ -38,21 +38,28 @@ class CategoriesView extends StatelessWidget {
 class _SearchBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoriesOverviewBloc, CategoriesOverviewState>(
-      builder: (context, state) {
-        if (state is CategoriesOverviewLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (state is CategoriesOverviewError) {
-          return Center(child: Text(state.error));
-        }
-        if (state is CategoriesOverviewSuccess) {
-          return state.items.isEmpty
-              ? const Text('No Results')
-              : _CategoriesResult(items: state.items);
-        }
-        return const Center(child: Text('Empty'));
+    return RefreshIndicator(
+      onRefresh: () async {
+        context
+            .read<CategoriesOverviewBloc>()
+            .add(CategoriesOverviewDataRequested());
       },
+      child: BlocBuilder<CategoriesOverviewBloc, CategoriesOverviewState>(
+        builder: (context, state) {
+          if (state is CategoriesOverviewLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is CategoriesOverviewError) {
+            return Center(child: Text(state.error));
+          }
+          if (state is CategoriesOverviewSuccess) {
+            return state.items.isEmpty
+                ? const Text('No Results')
+                : _CategoriesResult(items: state.items);
+          }
+          return const Center(child: Text('Empty'));
+        },
+      ),
     );
   }
 }
