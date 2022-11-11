@@ -11,7 +11,7 @@ class CategoryRepository {
 
   Future<Categories> getCategories() async {
     try {
-      final data = await client.queryData(
+      final data = await client.postData(
         apiUrl:
             'https://api.notion.com/v1/databases/$_categoriesDatabaseId/query',
         headers: {
@@ -29,6 +29,45 @@ class CategoryRepository {
       return Categories.fromJson(data);
     } catch (error) {
       throw const CategoriesError(message: 'Error al traer las categorias');
+    }
+  }
+
+  Future<Category> createCategory(Category newCategory) async {
+    try {
+      final data = await client.postData(
+        apiUrl: 'https://api.notion.com/v1/pages',
+        headers: {
+          'Notion-Version': '2022-06-28',
+          HttpHeaders.authorizationHeader: 'Bearer ${Environment.notionApiKey}',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+        body: {
+          'parent': {'database_id': _categoriesDatabaseId},
+          ...newCategory.toJson(),
+        },
+      );
+
+      return Category.fromJson(data);
+    } catch (error) {
+      throw const CategoriesError(message: 'Error al crear la categoría');
+    }
+  }
+
+  Future<Category> editCategory(Category editedCategory) async {
+    try {
+      final data = await client.patchData(
+        apiUrl: 'https://api.notion.com/v1/pages/${editedCategory.id}',
+        headers: {
+          'Notion-Version': '2022-06-28',
+          HttpHeaders.authorizationHeader: 'Bearer ${Environment.notionApiKey}',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+        body: editedCategory.toJson(),
+      );
+
+      return Category.fromJson(data);
+    } catch (error) {
+      throw const CategoriesError(message: 'Error al editar la categoría');
     }
   }
 
