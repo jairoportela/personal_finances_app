@@ -8,7 +8,7 @@ class ApiProvider {
 
   final http.Client _httpClient;
 
-  Future<Map<String, dynamic>> readData({
+  Future<Map<String, dynamic>> getData({
     required String apiUrl,
     Map<String, String>? headers,
   }) async {
@@ -21,13 +21,30 @@ class ApiProvider {
     }
   }
 
-  Future<Map<String, dynamic>> queryData({
+  Future<Map<String, dynamic>> postData({
     required String apiUrl,
     Map<String, String>? headers,
     Map<String, dynamic>? body,
   }) async {
     try {
       final response = await _httpClient.post(
+        Uri.parse(apiUrl),
+        headers: headers,
+        body: json.encode(body),
+      );
+      return json.decode(response.body) as Map<String, dynamic>;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> patchData({
+    required String apiUrl,
+    Map<String, String>? headers,
+    Map<String, dynamic>? body,
+  }) async {
+    try {
+      final response = await _httpClient.patch(
         Uri.parse(apiUrl),
         headers: headers,
         body: json.encode(body),
