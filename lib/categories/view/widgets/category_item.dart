@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finances_app/categories/models/category.dart';
+import 'package:personal_finances_app/categories/view/create_category_page.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({super.key, required this.item});
@@ -15,7 +16,10 @@ class CategoryItem extends StatelessWidget {
             )
           : null,
       title: Text(item.name),
-      onTap: () async {},
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed(CategoryCreatePage.routeName, arguments: item);
+      },
     );
   }
 }
