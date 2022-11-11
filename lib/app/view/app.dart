@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finances_app/categories/view/category_page.dart';
 import 'package:personal_finances_app/l10n/l10n.dart';
+import 'package:personal_finances_app/routes/route_generator.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -23,7 +24,8 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CategoryPage(),
+      home: const CategoriesPage(),
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

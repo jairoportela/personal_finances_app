@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_finances_app/categories/bloc/categories_overview_bloc.dart';
 import 'package:personal_finances_app/categories/models/category.dart';
 import 'package:personal_finances_app/categories/repository/category_repository.dart';
+import 'package:personal_finances_app/categories/view/create_category_page.dart';
 import 'package:personal_finances_app/categories/view/widgets/category_item.dart';
 import 'package:personal_finances_app/l10n/l10n.dart';
 import 'package:personal_finances_app/provider/api_provider.dart';
 
-class CategoryPage extends StatelessWidget {
-  const CategoryPage({super.key});
+class CategoriesPage extends StatelessWidget {
+  const CategoriesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,11 @@ class CategoriesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.categoriesAppBarTitle)),
       body: _SearchBody(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () =>
+            Navigator.of(context).pushNamed(CategoryCreatePage.routeName),
+      ),
     );
   }
 }
