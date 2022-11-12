@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_finances_app/categories/models/category.dart';
-import 'package:personal_finances_app/categories/view/create_category_page.dart';
+import 'package:personal_finances_app/categories/view/category_page_create.dart';
 
 class RouteGenerator {
   static const createPageRoute = CategoryCreatePage.routeName;
