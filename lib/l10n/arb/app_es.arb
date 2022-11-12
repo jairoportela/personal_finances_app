@@ -7,5 +7,21 @@
     "categoriesAppBarTitle": "Categorías",
     "@categoriesAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página de las categorías"
+    },
+    "createCategoryImageTabTitle": "Imagen",
+    "@createCategoryImageTabTitle": {
+        "description": "Texto mostrado en la segunda pestaña de la página de crear categoría"
+    },
+    "editButtonTitle": "Editar",
+    "@editButtonTitle": {
+        "description": "Texto mostrado en los botones para editar"
+    },
+    "createButtonTitle": "Crear",
+    "@createButtonTitle": {
+        "description": "Texto mostrado en los botones para crear"
+    },
+    "nameHintText": "Nombre",
+    "@nameHintText": {
+        "description": "Texto mostrado como ayuda en un TextField de nombre"
     }
 }

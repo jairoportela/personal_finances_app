@@ -7,5 +7,21 @@
     "categoriesAppBarTitle": "Categories",
     "@categoriesAppBarTitle": {
         "description": "Text shown in the AppBar of the Categories Page"
+    },
+    "createCategoryImageTabTitle": "Image",
+    "@createCategoryImageTabTitle": {
+        "description": "Text shown in the second label of the create Category TabBar"
+    },
+    "editButtonTitle": "Edit",
+    "@editButtonTitle": {
+        "description": "Text shown in a button to edit"
+    },
+    "createButtonTitle": "Create",
+    "@createButtonTitle": {
+        "description": "Text shown in a button to create"
+    },
+    "nameHintText": "Name",
+    "@nameHintText": {
+        "description": "Text shown as hint in a name textfield"
     }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_finances_app/categories/bloc/add_category_bloc.dart';
 import 'package:personal_finances_app/categories/models/category.dart';
 import 'package:personal_finances_app/categories/repository/category_repository.dart';
+import 'package:personal_finances_app/l10n/l10n.dart';
 import 'package:personal_finances_app/provider/api_provider.dart';
 import 'package:personal_finances_app/widgets/custom_navigation_bar.dart';
 import 'package:personal_finances_app/widgets/input_text_field.dart';
@@ -68,6 +69,7 @@ class _CategoryCreateViewState extends State<CategoryCreateView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocListener<AddCategoryBloc, AddCategoryState>(
       listener: (context, state) {
         if (state.status == AddCategoryStatus.successCreated ||
@@ -91,12 +93,12 @@ class _CategoryCreateViewState extends State<CategoryCreateView> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            bottom: const TabBar(
+            bottom: TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.emoji_emotions), text: 'Emoji'),
+                const Tab(icon: Icon(Icons.emoji_emotions), text: 'Emoji'),
                 Tab(
-                  icon: Icon(Icons.image),
-                  text: 'Image',
+                  icon: const Icon(Icons.image),
+                  text: l10n.createCategoryImageTabTitle,
                 ),
               ],
             ),
@@ -171,7 +173,8 @@ class _CategoryCreateViewState extends State<CategoryCreateView> {
             ],
           ),
           bottomNavigationBar: ButtonNavBar(
-            labelText: widget.isEdit ? 'Editar' : 'Crear',
+            labelText:
+                widget.isEdit ? l10n.editButtonTitle : l10n.createButtonTitle,
             onPressed: () => context.read<AddCategoryBloc>().add(
                   const AddCategorySubmitted(),
                 ),
@@ -187,12 +190,13 @@ class _NameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return LabelWidget(
-      label: 'Nombre',
+      label: l10n.nameHintText,
       child: TextFormField(
         textCapitalization: TextCapitalization.sentences,
         initialValue: context.read<AddCategoryBloc>().state.category.name,
-        decoration: const InputDecoration(hintText: 'Nombre'),
+        decoration: InputDecoration(hintText: l10n.nameHintText),
         onChanged: (value) =>
             context.read<AddCategoryBloc>().add(AddCategoryNameChanged(value)),
       ),
