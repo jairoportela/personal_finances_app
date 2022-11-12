@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_finances_app/categories/bloc/categories_overview_bloc.dart';
 import 'package:personal_finances_app/categories/models/category.dart';
 import 'package:personal_finances_app/categories/repository/category_repository.dart';
-import 'package:personal_finances_app/categories/view/create_category_page.dart';
+import 'package:personal_finances_app/categories/view/category_page_create.dart';
 import 'package:personal_finances_app/categories/view/widgets/category_item.dart';
 import 'package:personal_finances_app/l10n/l10n.dart';
 import 'package:personal_finances_app/provider/api_provider.dart';
@@ -32,11 +32,35 @@ class CategoriesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.categoriesAppBarTitle)),
       body: _SearchBody(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () =>
-            Navigator.of(context).pushNamed(CategoryCreatePage.routeName),
-      ),
+      floatingActionButton: const CreateCategoryButton(),
+    );
+  }
+}
+
+class CreateCategoryButton extends StatefulWidget {
+  const CreateCategoryButton({
+    super.key,
+  });
+
+  @override
+  State<CreateCategoryButton> createState() => _CreateCategoryButtonState();
+}
+
+class _CreateCategoryButtonState extends State<CreateCategoryButton> {
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      child: const Icon(Icons.add),
+      onPressed: () async {
+        final value =
+            await Navigator.of(context).pushNamed(CategoryCreatePage.routeName);
+        if (!mounted) return;
+        if (value != null && value == true) {
+          context
+              .read<CategoriesOverviewBloc>()
+              .add(CategoriesOverviewDataRequested());
+        }
+      },
     );
   }
 }
