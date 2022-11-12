@@ -54,4 +54,19 @@ class ApiProvider {
       rethrow;
     }
   }
+
+  Future<Map<String, dynamic>> deleteData({
+    required String apiUrl,
+    Map<String, String>? headers,
+  }) async {
+    try {
+      final response = await _httpClient.delete(
+        Uri.parse(apiUrl),
+        headers: headers,
+      );
+      return json.decode(response.body) as Map<String, dynamic>;
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
