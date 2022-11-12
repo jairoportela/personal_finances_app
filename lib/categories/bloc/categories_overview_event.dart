@@ -8,3 +8,8 @@ abstract class CategoriesOverviewEvent extends Equatable {
 }
 
 class CategoriesOverviewDataRequested extends CategoriesOverviewEvent {}
+
+class CategoriesOverviewDeleteRequested extends CategoriesOverviewEvent {
+  const CategoriesOverviewDeleteRequested(this.id);
+  final String id;
+}
