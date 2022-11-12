@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_finances_app/categories/view/category_page.dart';
 import 'package:personal_finances_app/l10n/l10n.dart';
 import 'package:personal_finances_app/routes/route_generator.dart';
+import 'package:personal_finances_app/theme/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,12 +17,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
-      ),
+      theme: lightTheme,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: const CategoriesPage(),
