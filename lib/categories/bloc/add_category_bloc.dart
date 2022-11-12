@@ -66,10 +66,14 @@ class AddCategoryBloc extends Bloc<AddCategoryEvent, AddCategoryState> {
   ) async {
     try {
       emit(state.copyWith(status: AddCategoryStatus.loading));
-      isEdit
-          ? await categoryRepository.createCategory(state.category)
-          : await categoryRepository.editCategory(state.category);
-      emit(state.copyWith(status: AddCategoryStatus.success));
+      if (isEdit) {
+        await categoryRepository.editCategory(state.category);
+        return emit(state.copyWith(status: AddCategoryStatus.successEdited));
+      }
+      if (!isEdit) {
+        await categoryRepository.createCategory(state.category);
+        return emit(state.copyWith(status: AddCategoryStatus.successEdited));
+      }
     } catch (error) {
       emit(state.copyWith(status: AddCategoryStatus.error));
     }

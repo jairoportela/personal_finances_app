@@ -1,6 +1,12 @@
 part of 'add_category_bloc.dart';
 
-enum AddCategoryStatus { initial, loading, success, error }
+enum AddCategoryStatus {
+  initial,
+  loading,
+  successCreated,
+  successEdited,
+  error
+}
 
 class AddCategoryState extends Equatable {
   const AddCategoryState({
