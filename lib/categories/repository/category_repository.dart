@@ -34,6 +34,10 @@ class CategoryRepository {
 
   Future<Category> createCategory(Category newCategory) async {
     try {
+      final body = {
+        'parent': {'database_id': _categoriesDatabaseId},
+        ...newCategory.toJson(),
+      };
       final data = await client.postData(
         apiUrl: 'https://api.notion.com/v1/pages',
         headers: {
@@ -41,10 +45,7 @@ class CategoryRepository {
           HttpHeaders.authorizationHeader: 'Bearer ${Environment.notionApiKey}',
           HttpHeaders.contentTypeHeader: 'application/json',
         },
-        body: {
-          'parent': {'database_id': _categoriesDatabaseId},
-          ...newCategory.toJson(),
-        },
+        body: body,
       );
 
       return Category.fromJson(data);
@@ -68,6 +69,22 @@ class CategoryRepository {
       return Category.fromJson(data);
     } catch (error) {
       throw const CategoriesError(message: 'Error al editar la categoría');
+    }
+  }
+
+  Future<Category> deleteCategory(String id) async {
+    try {
+      final data = await client.deleteData(
+        apiUrl: 'https://api.notion.com/v1/blocks/$id',
+        headers: {
+          'Notion-Version': '2022-06-28',
+          HttpHeaders.authorizationHeader: 'Bearer ${Environment.notionApiKey}',
+        },
+      );
+
+      return Category.fromJson(data);
+    } catch (error) {
+      throw const CategoriesError(message: 'Error al eliminar la categoría');
     }
   }
 
