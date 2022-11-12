@@ -8,7 +8,7 @@ part of 'category.dart';
 
 Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       id: json['id'] as String?,
-      name: Category._readNameValue(json, 'name') as String,
+      name: Category._readNameValue(json, 'properties') as String,
       icon: json['icon'] == null
           ? null
           : IconItem.fromJson(json['icon'] as Map<String, dynamic>),
@@ -24,7 +24,7 @@ Map<String, dynamic> _$CategoryToJson(Category instance) {
   }
 
   writeNotNull('id', instance.id);
-  val['name'] = Category._toJsonNameValue(instance.name);
+  val['properties'] = Category._toJsonNameValue(instance.name);
   val['icon'] = instance.icon;
   return val;
 }

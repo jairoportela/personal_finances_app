@@ -43,12 +43,16 @@ class Category {
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
   @JsonKey(includeIfNull: false)
   final String? id;
-  @JsonKey(readValue: _readNameValue, toJson: _toJsonNameValue)
+  @JsonKey(
+    readValue: _readNameValue,
+    toJson: _toJsonNameValue,
+    name: 'properties',
+  )
   final String name;
   final IconItem? icon;
 
-  static String _readNameValue(Map<dynamic, dynamic> json, String _) {
-    return json['properties']['Name']['title'][0]['text']['content'] as String;
+  static String _readNameValue(Map<dynamic, dynamic> json, String name) {
+    return json[name]['Name']['title'][0]['text']['content'] as String;
   }
 
   Category copyWith({
@@ -69,16 +73,14 @@ class Category {
 
   static Map<String, dynamic> _toJsonNameValue(String value) {
     return {
-      'properties': {
-        'Name': {
-          'title': [
-            {
-              'text': {
-                'content': value,
-              }
+      'Name': {
+        'title': [
+          {
+            'text': {
+              'content': value,
             }
-          ]
-        }
+          }
+        ]
       }
     };
   }
